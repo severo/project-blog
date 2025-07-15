@@ -16,10 +16,9 @@ const CircularColorsDemo = dynamic(() =>
 const DivisionGroupsDemo = dynamic(() =>
   import("@/components/DivisionGroupsDemo")
 );
-const cachedLoadBlogPost = React.cache(loadBlogPost);
 
 export async function generateMetadata({ params: { postSlug } }) {
-  const blogPost = await cachedLoadBlogPost(postSlug);
+  const blogPost = await loadBlogPost(postSlug);
   if (!blogPost) {
     return {};
   }
@@ -33,7 +32,7 @@ export async function generateMetadata({ params: { postSlug } }) {
 }
 
 async function BlogPost({ params: { postSlug } }) {
-  const blogPost = await cachedLoadBlogPost(postSlug);
+  const blogPost = await loadBlogPost(postSlug);
   if (!blogPost) {
     notFound();
   }

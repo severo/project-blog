@@ -4,14 +4,6 @@ import BlogSummaryCard from "@/components/BlogSummaryCard";
 
 import styles from "./homepage.module.css";
 import { getBlogPostList } from "@/helpers/file-helpers";
-import { BLOG_TITLE, BLOG_DESCRIPTION } from "@/constants.js";
-
-export async function generateMetadata() {
-  return {
-    title: BLOG_TITLE,
-    description: BLOG_DESCRIPTION,
-  };
-}
 
 async function Home() {
   // each blog post object has slug, title, abstract, publishedOn

@@ -1,6 +1,12 @@
 import React from "react";
 
+import { BLOG_TITLE } from "@/constants";
+
 import styles from "./homepage.module.css";
+
+export const metadata = {
+  title: `404 Not Found • ${BLOG_TITLE}`,
+};
 
 export default function NotFound() {
   return (
