@@ -9,6 +9,9 @@ import { loadBlogPost } from "@/helpers/file-helpers";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { BLOG_TITLE } from "@/constants";
 
+const CircularColorsDemo = dynamic(() =>
+  import("@/components/CircularColorsDemo")
+);
 const DivisionGroupsDemo = dynamic(() =>
   import("@/components/DivisionGroupsDemo")
 );
@@ -39,6 +42,7 @@ async function BlogPost({ params: { postSlug } }) {
           source={content}
           components={{
             pre: CodeSnippet,
+            CircularColorsDemo,
             DivisionGroupsDemo,
           }}
         />
