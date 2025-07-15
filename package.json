@@ -4,7 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "predev": "npm run build:rss",
     "build": "next build",
+    "build:rss": "node src/scripts/build_rss.js",
+    "prebuild": "npm run build:rss",
     "start": "next start",
     "lint": "next lint",
     "new-component": "new-component"
@@ -24,5 +27,8 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-feather": "2.0.10"
+  },
+  "devDependencies": {
+    "rss": "^1.2.2"
   }
 }
