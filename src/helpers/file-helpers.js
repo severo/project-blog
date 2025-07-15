@@ -22,11 +22,16 @@ export async function getBlogPostList() {
 }
 
 export async function loadBlogPost(slug) {
-  const rawContent = await readFile(`/content/${slug}.mdx`);
-
-  const { data: frontmatter, content } = matter(rawContent);
-
-  return { frontmatter, content };
+  try {
+    const rawContent = await readFile(`/content/${slug}.mdx`);
+    const { data: frontmatter, content } = matter(rawContent);
+    return { frontmatter, content };
+  } catch (e) {
+    if (e?.code === "ENOENT") {
+      // no post with this slug
+      return;
+    }
+  }
 }
 
 function readFile(localPath) {

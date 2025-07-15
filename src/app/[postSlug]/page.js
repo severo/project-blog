@@ -1,5 +1,6 @@
 import React from "react";
 import dynamic from "next/dynamic";
+import { notFound } from "next/navigation";
 
 import BlogHero from "@/components/BlogHero";
 import CodeSnippet from "@/components/CodeSnippet";
@@ -18,10 +19,13 @@ const DivisionGroupsDemo = dynamic(() =>
 const cachedLoadBlogPost = React.cache(loadBlogPost);
 
 export async function generateMetadata({ params: { postSlug } }) {
+  const blogPost = await cachedLoadBlogPost(postSlug);
+  if (!blogPost) {
+    return {};
+  }
   const {
-    frontmatter: { title, abstract, publishedOn },
-  } = await cachedLoadBlogPost(postSlug);
-
+    frontmatter: { title, abstract },
+  } = blogPost;
   return {
     title: `${title} • ${BLOG_TITLE}`,
     description: abstract,
@@ -29,10 +33,14 @@ export async function generateMetadata({ params: { postSlug } }) {
 }
 
 async function BlogPost({ params: { postSlug } }) {
+  const blogPost = await cachedLoadBlogPost(postSlug);
+  if (!blogPost) {
+    notFound();
+  }
   const {
     frontmatter: { title, abstract, publishedOn },
     content,
-  } = await cachedLoadBlogPost(postSlug);
+  } = blogPost;
 
   return (
     <article className={styles.wrapper}>
